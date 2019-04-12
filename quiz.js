@@ -5,6 +5,7 @@ var pressed = {};
 var shuffled = shuffle(vocab);
 var index = -1;
 var first_play = false;
+var last_play = false;
 
 var accent = -1;
 var flag = false;
@@ -150,6 +151,7 @@ function render() {
 
 		if (!first_play) {
 			first_play = true;
+			last_play = false;
 			if (testing_entry.audio !== undefined) {
 				var audio = new Audio('audio/' + shuffle(testing_entry.audio)[0]);
 				audio.play();
@@ -164,6 +166,11 @@ function render() {
 			if (entries[i] == testing_entry) {
 				flag = true;
 				current_token = "";
+				if (testing_entry.audio !== undefined && !last_play) {
+					last_play = true;
+					var audio = new Audio('audio/' + shuffle(testing_entry.audio)[0]);
+					audio.play();
+				}
 			}
 		}
 

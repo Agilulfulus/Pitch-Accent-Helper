@@ -44,12 +44,13 @@ function isValid(token, map) {
 }
 
 function findEntry(kana, accent) {
+	var ret = [];
 	for (var i = 0; i < vocab.length; i++) {
 		var entry = vocab[i];
 		if (entry.kana == kana && entry.accent == accent)
-			return entry;
+			ret.push(entry);
 	}
-	return undefined;
+	return ret;
 }
 
 var accent = 0;
@@ -106,7 +107,7 @@ document.addEventListener("keyup", (e) => {
 	ctx.strokeStyle = "#ffffff";
 	ctx.fillRect(0, 0, c.width, c.height);
 
-	var entry = findEntry(current_text.join(""), accent);
+	var entries = findEntry(current_text.join(""), accent);
 
 	ctx.textAlign = "left";
 	ctx.font = font_height_main + "px Sans-Serif";
@@ -117,7 +118,7 @@ document.addEventListener("keyup", (e) => {
 	var i;
 	for (i = 0; i < current_text.length; i++) {
 		if (i + 1 == accent) {
-			if (entry !== undefined)
+			if (entries.length > 0)
 				ctx.fillStyle = "#99ff99";
 			else
 				ctx.fillStyle = "#ff9999";
@@ -125,7 +126,7 @@ document.addEventListener("keyup", (e) => {
 			ctx.fillStyle = "#ffffff";
 
 		ctx.fillText(current_text[i], cursor, c.height / 2);
-		if (entry !== undefined)
+		if (entries.length > 0)
 			ctx.strokeStyle = "#00FF00";
 		else
 			ctx.strokeStyle = "#FF0000";
@@ -170,9 +171,12 @@ document.addEventListener("keyup", (e) => {
 	ctx.fillStyle = "#ffffff";
 	ctx.font = (font_height / 4) + "px Sans-Serif";
 	ctx.textAlign = "center";
-	ctx.fillText(current_token, c.width / 2, c.height / 2 + font_height_main * .75);
-	if (entry !== undefined) {
+	ctx.fillText(current_text.join("") + " " + current_token, c.width / 2, c.height / 2 + font_height_main * .75);
+	if (entries.length > 0) {
 		ctx.font = (font_height / 3) + "px Sans-Serif";
-		ctx.fillText(entry.kanji + " ・ " + entry.en, c.width / 2, c.height / 2 - font_height_main * 1.5);
+		for (var i = 0; i < entries.length; i++) {
+			var entry = entries[i];
+			ctx.fillText(entry.kanji + " ・ " + entry.en, c.width / 2, c.height / 2 - font_height_main * 1.5 - (i * (font_height / 3 * 1.5)));
+		}
 	}
 })();

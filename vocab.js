@@ -154,5 +154,35 @@ const vocab = [
 		kanji: "紙",
 		accent: 0,
 		en: "Paper"
+	},
+	{
+		kana: "はな",
+		kanji: "花",
+		accent: 2,
+		en: "Flower"
+	},
+	{
+		kana: "はな",
+		kanji: "鼻",
+		accent: 0,
+		en: "Nose"
+	},
+	{
+		kana: "て",
+		kanji: "手",
+		accent: 1,
+		en: "Hand"
+	},
+	{
+		kana: "き",
+		kanji: "木",
+		accent: 1,
+		en: "Tree"
+	},
+	{
+		kana: "き",
+		kanji: "気",
+		accent: 0,
+		en: "Energy"
 	}
 ]
